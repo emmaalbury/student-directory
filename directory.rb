@@ -22,15 +22,15 @@ def input_students
   # create an empty array
   students = []
   # get the first chomp
-  name = gets.chomp
-  puts "What is their cohort?"
-  cohort = gets.chomp
+  name = gets.strip
   # while the name is not empty, repeat this code
   while !name.empty? do
+    puts "What is their cohort?"
+    cohort = gets.strip
     puts "What is their favorite hobby?"
-    hobby = gets.chomp
+    hobby = gets.strip
     puts "Where were they born?"
-    birth_place = gets.chomp
+    birth_place = gets.strip
     # add the student hash to the array
     students << {name: name, cohort: cohort, hobby: hobby, birth: birth_place}
     if students.length > 1
@@ -41,7 +41,7 @@ def input_students
     # get another name from the user
     puts "Please enter the name of a student"
     puts "To finish, just hit return twice"
-    name = gets.chomp
+    name = gets.strip
   end
   # return the array of input_students
   students
