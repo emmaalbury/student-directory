@@ -1,31 +1,46 @@
 def print_header
-  puts "The students of Villains Academy"
-  puts "_____________"
+  puts "The students of Villains Academy".center(80)
+  puts "_____________".center(80)
+  puts " "
 end
 def print(students)
   students.each_with_index do |student, index|
     if student[:name].start_with?("M") && student[:name].length < 12
-      puts "#{index +1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{index +1}. #{student[:name]} (#{student[:cohort]} cohort, born in #{student[:birth]} and enjoys #{student[:hobby]})".center(80)
     end
   end
 end
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts " "
+  puts "Overall, we have #{students.count} great students".center(80)
+  puts " "
 end
 
 def input_students
-  puts "Please enter the names of the students"
+  puts "Please enter the name of a student"
   puts "To finish, just hit return twice"
   # create an empty array
   students = []
   # get the first chomp
   name = gets.chomp
+  puts "What is their cohort?"
+  cohort = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
+    puts "What is their favorite hobby?"
+    hobby = gets.chomp
+    puts "Where were they born?"
+    birth_place = gets.chomp
     # add the student hash to the array
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
+    students << {name: name, cohort: cohort, hobby: hobby, birth: birth_place}
+    if students.length > 1
+      puts "Now we have #{students.count} students"
+    else
+      puts "Now we have #{students.count} student"
+    end
     # get another name from the user
+    puts "Please enter the name of a student"
+    puts "To finish, just hit return twice"
     name = gets.chomp
   end
   # return the array of input_students
@@ -33,6 +48,6 @@ def input_students
 end
 
 students = input_students
-print(students)
 print_header
+print(students)
 print_footer(students)
