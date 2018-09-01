@@ -32,7 +32,7 @@ def input_students
     puts "Where were they born?"
     birth_place = gets.strip
     # add the student hash to the array
-    students << {name: name, cohort: cohort, hobby: hobby, birth: birth_place}
+    students << {name: name == "" ? "#info missing" : name, cohort: cohort == "" ? "#info missing" : cohort, hobby: hobby == "" ? "#info missing" : hobby, birth: birth_place == "" ? "#info missing" : birth_place}
     if students.length > 1
       puts "Now we have #{students.count} students"
     else
