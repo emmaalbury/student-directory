@@ -39,6 +39,19 @@ def input_students
       puts "Now we have #{students.count} student"
     end
     # get another name from the user
+    puts "If you have made a typo, enter 'typo'."
+    typo = gets.strip
+    if typo == "typo"
+      puts "what would you like to replace?"
+      delete = gets.strip
+      puts "what would you like to replace it with?"
+      replacement = gets.strip
+      students[-1].each do |key, value|
+        if value == delete
+          students[-1][key] = replacement
+        end
+      end
+    end
     puts "Please enter the name of a student"
     puts "To finish, just hit return twice"
     name = gets.strip
