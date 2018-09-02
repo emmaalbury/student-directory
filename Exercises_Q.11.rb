@@ -20,22 +20,23 @@ def process(selection)
     # 3. do what the user has asked
   case selection
     when "1"
+      puts "Input the students"
       input_students
     when "2"
+      puts "Show the Students"
       show_students
     when "3"
+      puts "Save the list to students.csv"
       save_students
     when "4"
+      puts "Load the list from students.csv"
       load_students
     when "9"
+      puts "Exit"
       exit # this will cause the program to terminate
     else
       puts "I don't know what you meant, try again"
   end
-end
-
-def add_students
-  @students << {name: @name, cohort: :november}
 end
 
 def input_students
@@ -44,16 +45,16 @@ def input_students
   # create an empty array
   # students = []
   # get the first name
-  @name = STDIN.gets.chomp
+  name = STDIN.gets.chomp
   # while the name is not empty, repeat this code
-  while !@name.empty? do
+  while !name.empty? do
   # add the student hash to the array
-    add_students
+    @students << {name: name, cohort: :november}
     puts "Now we have #{@students.count} students"
     # get another name from the user
     puts "Please enter the name of another student"
     puts "To finish, just hit return twice"
-    @name = STDIN.gets.chomp
+    name = STDIN.gets.chomp
   end
   # return the array of students
   # @students
@@ -98,15 +99,16 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    add_students
+    @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
 
 def try_load_students
   filename = ARGV.first # first argument from the command cvs_line
-  return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename) # if it exists
+  if filename.nil? # get out of the method if it isn't given
+    load_students
+  elsif File.exists?(filename) # if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exists
@@ -117,6 +119,3 @@ end
 
 try_load_students
 interactive_menu
-# print_header
-# print_students_list()
-# print_footer

@@ -34,9 +34,6 @@ def process(selection)
   end
 end
 
-def add_students
-  @students << {name: @name == "" ? "#info missing" : @name, cohort: @cohort, hobby: @hobby == "" ? "#info missing" : @hobby, birth: @birth_place == "" ? "#info missing" : @birth_place}
-end
 
 def input_students
   puts "Please enter the name of a student"
@@ -64,7 +61,7 @@ def input_students
     puts "Where were they born?"
     @birth_place = STDIN.gets.strip
     # add the student hash to the array
-    add_students
+    @students << {name: @name == "" ? "#info missing" : @name, cohort: @cohort, hobby: @hobby == "" ? "#info missing" : @hobby, birth: @birth_place == "" ? "#info missing" : @birth_place}
     # give running count
     if @students.length > 1
       puts "Now we have #{@students.count} students"
@@ -151,7 +148,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    add_students
+    @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
