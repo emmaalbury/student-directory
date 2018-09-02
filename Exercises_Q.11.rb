@@ -1,39 +1,15 @@
 @students = [] # an empty array accessible to all methods
 
-def interactive_menu
-  loop do
-    print_menu
-    process(gets.chomp)
+def save_students
+  # open the file for writing
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    cvs_line = student_data.join(",")
+    file.puts cvs_line
   end
-end
-
-def print_menu
-# 1. print the menu and ask the user what to do
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "9. Exit" # 9 because we'll be adding more items
-end
-# 2. read the input and save it into a variable
-# selection = gets.chomp
-
-def process(selection)
-    # 3. do what the user has asked
-  case selection
-    when "1"
-      input_students
-    when "2"
-      show_students
-    when "9"
-      exit # this will cause the program to terminate
-    else
-      puts "I don't know what you meant, try again"
-  end
-end
-
-def show_students
-  print_header
-  print_students_list
-  print_footer
+  file.close
 end
 
 def input_students
@@ -55,6 +31,42 @@ def input_students
   end
   # return the array of students
   @students
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def print_menu
+# 1. print the menu and ask the user what to do
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit" # 9 because we'll be adding more items
+end
+# 2. read the input and save it into a variable
+# selection = gets.chomp
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
+def process(selection)
+    # 3. do what the user has asked
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+  end
 end
 
 def print_header
