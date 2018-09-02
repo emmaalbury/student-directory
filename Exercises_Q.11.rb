@@ -4,8 +4,8 @@ def print_menu
 # 1. print the menu and ask the user what to do
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list"
+  puts "4. Load the list"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -26,10 +26,10 @@ def process(selection)
       puts "Show the Students"
       show_students
     when "3"
-      puts "Save the list to students.csv"
+      puts "Save the list"
       save_students
     when "4"
-      puts "Load the list from students.csv"
+      puts "Load the list"
       load_students
     when "9"
       puts "Exit"
@@ -84,8 +84,10 @@ def print_footer
 end
 
 def save_students
+  puts "Which file would you like to save to?"
+  save = gets.chomp
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(save, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
