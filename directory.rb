@@ -34,33 +34,37 @@ def process(selection)
   end
 end
 
+def add_students
+  @students << {name: @name == "" ? "#info missing" : @name, cohort: @cohort, hobby: @hobby == "" ? "#info missing" : @hobby, birth: @birth_place == "" ? "#info missing" : @birth_place}
+end
+
 def input_students
   puts "Please enter the name of a student"
   puts "To finish, just hit return twice"
   # create an empty array
   # students = []
   # gets name
-  name = STDIN.gets.strip
+  @name = STDIN.gets.strip
   # empty array used to print students by cohort
   cohorts = {}
   # while the name is not empty, repeat this code
-  while !name.empty? do
+  while !@name.empty? do
     puts "What is their cohort?"
-    cohort = STDIN.gets.strip
+    @cohort = STDIN.gets.strip
     # add cohorts to cohort array
-    cohort = cohort == "" ? "#info missing" : cohort
+    cohort = cohort == "" ? "#info missing" : @cohort
     if cohorts[cohort]
       cohorts[cohort].push(name)
     else
-      cohorts[cohort] = [name]
+      cohorts[cohort] = [@name]
     end
     # ask for other info
     puts "What is their favorite hobby?"
-    hobby = STDIN.gets.strip
+    @hobby = STDIN.gets.strip
     puts "Where were they born?"
-    birth_place = STDIN.gets.strip
+    @birth_place = STDIN.gets.strip
     # add the student hash to the array
-    @students << {name: name == "" ? "#info missing" : name, cohort: cohort, hobby: hobby == "" ? "#info missing" : hobby, birth: birth_place == "" ? "#info missing" : birth_place}
+    add_students
     # give running count
     if @students.length > 1
       puts "Now we have #{@students.count} students"
@@ -69,8 +73,8 @@ def input_students
     end
     # allow user to fix typos in last entry
     puts "If you have made a typo, enter 'typo', else hit return."
-    typo = STDIN.gets.strip
-    if typo == "typo"
+    @typo = STDIN.gets.strip
+    if @typo == "typo"
       puts "what would you like to replace?"
       delete = STDIN.gets.strip
       puts "what would you like to replace it with?"
@@ -84,7 +88,7 @@ def input_students
     # get another name from the user
     puts "Please enter the name of a student"
     puts "To finish, just hit return twice"
-    name = STDIN.gets.strip
+    @name = STDIN.gets.strip
   end
   return cohorts, @students
 end
@@ -147,7 +151,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students
   end
   file.close
 end
